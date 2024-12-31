@@ -32,6 +32,13 @@ function populateCalendar(year, month) {
     const calendarDays = document.getElementById("calendar-days");
     calendarDays.innerHTML = "";
 
+    const today = new Date();
+    const [todayJalaliYear, todayJalaliMonth, todayJalaliDay] = gregorianToJalali(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        today.getDate()
+    );
+
     const firstDay = new Date(year, month - 1, 1).getDay();
     const totalDays = new Date(year, month, 0).getDate();
 
@@ -47,7 +54,6 @@ function populateCalendar(year, month) {
     // Create cells for each day in the month
     for (let day = 1; day <= totalDays; day++) {
         if (row.children.length === 7) {
-            // Append the current row and start a new one
             calendarDays.appendChild(row);
             row = document.createElement("tr");
         }
@@ -56,11 +62,10 @@ function populateCalendar(year, month) {
         cell.innerText = day;
 
         // Highlight today's date
-        const today = new Date();
         if (
-            year === today.getFullYear() &&
-            month === today.getMonth() + 1 &&
-            day === today.getDate()
+            year === todayJalaliYear &&
+            month === todayJalaliMonth &&
+            day === todayJalaliDay
         ) {
             cell.className = "today";
         }
@@ -75,18 +80,49 @@ function populateCalendar(year, month) {
         row.appendChild(cell);
     }
 
-    // Append the final row
     calendarDays.appendChild(row);
 }
 
+let currentJalaliYear;
+let currentJalaliMonth;
 
 // Initialize calendar
 function initCalendar() {
-    const now = new Date();
-    const [jy, jm] = gregorianToJalali(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    const today = new Date();
+    const [jy, jm] = gregorianToJalali(today.getFullYear(), today.getMonth() + 1, today.getDate());
 
-    document.getElementById("current-month").innerText = `${MONTHS[jm - 1]} ${jy}`;
-    populateCalendar(now.getFullYear(), now.getMonth() + 1);
+    currentJalaliYear = jy;
+    currentJalaliMonth = jm;
+
+    updateCalendar();
 }
 
+// Update the calendar display
+function updateCalendar() {
+    document.getElementById("current-month").innerText = `${MONTHS[currentJalaliMonth - 1]} ${currentJalaliYear}`;
+    populateCalendar(currentJalaliYear, currentJalaliMonth);
+}
+
+// Event listeners for next/previous month buttons
+document.getElementById("next-month").addEventListener("click", () => {
+    if (currentJalaliMonth === 12) {
+        currentJalaliMonth = 1;
+        currentJalaliYear++;
+    } else {
+        currentJalaliMonth++;
+    }
+    updateCalendar();
+});
+
+document.getElementById("prev-month").addEventListener("click", () => {
+    if (currentJalaliMonth === 1) {
+        currentJalaliMonth = 12;
+        currentJalaliYear--;
+    } else {
+        currentJalaliMonth--;
+    }
+    updateCalendar();
+});
+
+// Initialize the calendar on page load
 initCalendar();
