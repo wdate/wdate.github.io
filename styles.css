@@ -41,21 +41,34 @@ body {
     font-size: 14px;
 }
 
+#go-to-today {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed; /* Ensure all cells have equal width */
 }
 
 thead th {
     background-color: #333;
     color: white;
     padding: 10px 0;
+    text-align: center;
 }
 
 tbody td {
-    width: 14.28%;
-    padding: 10px;
+    width: 14.28%; /* Each day occupies 1/7th of the width */
+    height: 50px;  /* Fixed height for cells */
     text-align: center;
+    vertical-align: middle; /* Center content vertically */
     border: 1px solid #eee;
 }
 
@@ -70,12 +83,3 @@ tbody td.today {
     font-weight: bold;
 }
 
-#go-to-today {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    font-size: 16px;
-    cursor: pointer;
-}
