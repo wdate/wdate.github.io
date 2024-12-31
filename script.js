@@ -28,31 +28,57 @@ function gregorianToJalali(gy, gm, gd) {
     return [jy, jm, jd];
 }
 
-// Populate calendar days
 function populateCalendar(year, month) {
     const calendarDays = document.getElementById("calendar-days");
     calendarDays.innerHTML = "";
 
-    // Find the first day of the month
     const firstDay = new Date(year, month - 1, 1).getDay();
-
-    // Get total days in the month
     const totalDays = new Date(year, month, 0).getDate();
 
-    // Create empty cells for days before the start of the month
+    let row = document.createElement("tr");
+
+    // Empty cells for the days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
         const cell = document.createElement("td");
         cell.className = "inactive";
-        calendarDays.appendChild(cell);
+        row.appendChild(cell);
     }
 
     // Create cells for each day in the month
     for (let day = 1; day <= totalDays; day++) {
+        if (row.children.length === 7) {
+            // Append the current row and start a new one
+            calendarDays.appendChild(row);
+            row = document.createElement("tr");
+        }
+
         const cell = document.createElement("td");
         cell.innerText = day;
-        calendarDays.appendChild(cell);
+
+        // Highlight today's date
+        const today = new Date();
+        if (
+            year === today.getFullYear() &&
+            month === today.getMonth() + 1 &&
+            day === today.getDate()
+        ) {
+            cell.className = "today";
+        }
+
+        row.appendChild(cell);
     }
+
+    // Fill the remaining cells of the last row
+    while (row.children.length < 7) {
+        const cell = document.createElement("td");
+        cell.className = "inactive";
+        row.appendChild(cell);
+    }
+
+    // Append the final row
+    calendarDays.appendChild(row);
 }
+
 
 // Initialize calendar
 function initCalendar() {
