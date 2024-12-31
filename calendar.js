@@ -19,5 +19,7 @@ function loadScript(url, callback) {
 
 // Load the jalaali-js library and display the date
 window.onload = function () {
-    loadScript('https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js', loadJalaaliDate);
+    loadScript('https://github.com/jalaali/moment-jalaali/raw/refs/heads/master/build/moment-jalaali.js', loadJalaaliDate);
+    
+    // loadScript('https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js', loadJalaaliDate);
 };
