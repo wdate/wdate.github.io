@@ -4,21 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iranian Calendar</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        #iranian-calendar {
-            font-size: 24px;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Iranian Calendar</h1>
-    <div id="iranian-calendar">Loading...</div>
-    <script src="calendar.js"></script>
+    <div class="calendar">
+        <div class="header">
+            <button id="prev-month">ماه قبل</button>
+            <h2 id="current-month">دی 1403</h2>
+            <button id="next-month">ماه بعد</button>
+        </div>
+        <div class="sub-header">
+            <p>December 2024 - January 2025</p>
+            <p>جمادي الثانيه - رجب 1446</p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ش</th>
+                    <th>ی</th>
+                    <th>د</th>
+                    <th>س</th>
+                    <th>چ</th>
+                    <th>پ</th>
+                    <th>ج</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-days">
+                <!-- Calendar days will be dynamically populated -->
+            </tbody>
+        </table>
+        <button id="go-to-today">برو به امروز</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
