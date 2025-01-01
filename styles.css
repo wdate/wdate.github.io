@@ -6,6 +6,13 @@ body {
     padding: 0;
 }
 
+#month-options li {
+    direction: rtl;
+    text-align: right;
+    padding: 5px;
+
+}
+
 .calendar {
     max-width: 400px;
     margin: 50px auto;
@@ -14,9 +21,10 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    direction: rtl;
 }
 
-.header {
+.calendar .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,7 +34,7 @@ body {
     font-weight: bold;
 }
 
-.header button {
+.calendar .header button {
     background: none;
     border: none;
     cursor: pointer;
@@ -34,11 +42,72 @@ body {
     font-size: 16px;
 }
 
-.sub-header {
+.calendar .sub-header {
     padding: 10px;
     background-color: #007BFF;
     color: white;
     font-size: 14px;
+    text-align: center;
+}
+
+.calendar thead th {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.calendar tbody td {
+    width: 14.28%; /* Each day occupies 1/7th of the width */
+    height: 50px;  /* Fixed height for cells */
+    text-align: center;
+    vertical-align: middle; /* Center content vertically */
+    border: 1px solid #eee;
+    padding: 3px;
+}
+
+.calendar tbody td.inactive {
+    color: #ccc;
+}
+
+.calendar tbody td.today {
+    background-color: #007BFF;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.calendar td div {
+    text-align: center;
+    line-height: 1.5;
+}
+
+.calendar table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.gday {
+    display: inline;
+    float: right;
+    font-size: 0.8em;
+    color: #555;
+}
+
+.hday {
+    display: inline;
+    float: left;
+    font-size: 0.8em;
+    color: #555;
+}
+
+.jday {
+    font-weight: bold;
+}
+
+.inactive .hday, .inactive .gday {
+    color: #ccc;
 }
 
 #go-to-today {
@@ -50,36 +119,3 @@ body {
     font-size: 16px;
     cursor: pointer;
 }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; /* Ensure all cells have equal width */
-}
-
-thead th {
-    background-color: #333;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-}
-
-tbody td {
-    width: 14.28%; /* Each day occupies 1/7th of the width */
-    height: 50px;  /* Fixed height for cells */
-    text-align: center;
-    vertical-align: middle; /* Center content vertically */
-    border: 1px solid #eee;
-}
-
-tbody td.inactive {
-    color: #ccc;
-}
-
-tbody td.today {
-    background-color: #007BFF;
-    color: white;
-    border-radius: 50%;
-    font-weight: bold;
-}
-
