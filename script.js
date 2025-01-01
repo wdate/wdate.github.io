@@ -606,6 +606,40 @@ document.getElementById("go-to-today").addEventListener("click", () => {
     document.getElementById("month-options");
 }
 
+tippy('#dialog-open', {
+    content: `
+      <div style="padding: 10px; width: 200px;">
+        <input type="text" id="popupTextbox" placeholder="سال ..." style="width: 120px; padding: 5px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+        <button id="popupSubmit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px;">ثبت</button>
+      </div>
+    `,
+    allowHTML: true,
+    interactive: true,
+    trigger: 'click',
+    theme: 'light',
+    onShown(instance) {
+      // Focus the textbox when dropdown is shown
+      const textbox = document.getElementById('popupTextbox');
+      textbox.focus();
+  
+      // Handle submit button click
+      document.getElementById('popupSubmit').addEventListener('click', () => {
+        //alert(`You entered: ${textbox.value}`);
+        let v = parseInt(textbox.value);
+        if (!isNaN(v))
+            currentJalaliYear = v;
+        instance.hide();
+        updateCalendar();
+      });
+    },
+  });
+
+// document.getElementById("dialog-open").addEventListener("click", () => {
+//     var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+//     modal.show();
+
+// });
+
 
 // // Toggle dropdown on click
 // document.getElementById("month-select").addEventListener("click", () => {
