@@ -205,6 +205,7 @@ body {
     gap: 10px; /* Optional: Adds spacing between items */
     width: 810px;
     direction: rtl;
+    margin: auto;
 }
 
 
