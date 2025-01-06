@@ -70,10 +70,11 @@ body {
     color: #ccc;
 }
 
-.calendar tbody td.today .jday {
-    background-color: #ff9999;
+.calendar tbody td.today {
+    border-color: #ff8888;
+    border-width: 5px;
     /* border-style: solid; */
-    color: white;
+    color: black;
     border-radius: 8px;
     font-weight: bold;
 }
@@ -177,18 +178,6 @@ body {
     border-width: 1px;
 }
 
-#calendar-monasebat-container {
-    width: 810px;
-    margin: auto;
-}
-
-#calendar-container {
-    /* float: right; */
-}
-
-#monasebat-container {
-    /* float: left; */
-}
 
 .owghat {
     max-width: 400px;
@@ -210,18 +199,56 @@ body {
     /* display: inline; */
 }
 
+#calendar-monasebat-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 10px; /* Optional: Adds spacing between items */
+    width: 810px;
+    direction: rtl;
+}
+
+
+#calendar-container {
+    /* float: right; */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+  
+}
+
+#owghat-container {
+    /* float: left; */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+  
+}
+
+#monasebat-container {
+    /* float: none; */
+    /* max-width: 800px; */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    flex-basis: 100%; /* Take full width to move to the next line */
+  
+}
+
+
+
 @media screen and (max-width: 810px) {
     .column {
         /* display: block; */
     }
 
-
     #calendar-container {
-        float: none;
+        /* float: none; */
+    }
+
+    #owghat-container {
+        /* float: none; */
     }
 
     #monasebat-container {
-        float: none;
+        /* float: none; */
+        /* max-width: 400px; */
     }
 
     #calendar-monasebat-container {
