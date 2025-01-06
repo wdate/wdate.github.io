@@ -24,7 +24,7 @@ body {
     direction: rtl;
 }
 
-.calendar .header {
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +34,7 @@ body {
     font-weight: bold;
 }
 
-.calendar .header button {
+.header button {
     background: none;
     border: none;
     cursor: pointer;
@@ -134,7 +134,7 @@ body {
     direction: rtl;
 }
 
-#monasebat-container .header {
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -183,11 +183,27 @@ body {
 }
 
 #calendar-container {
-    float: right;
+    /* float: right; */
 }
 
 #monasebat-container {
-    float: left;
+    /* float: left; */
+}
+
+.owghat {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    direction: rtl;
+}
+
+.owghat table {
+    margin: 5px;
+    display: inline;
 }
 
 .column {

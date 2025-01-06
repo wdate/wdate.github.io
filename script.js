@@ -768,6 +768,43 @@ function getToday() {
 
 }
 
+function updateOwghat() {
+    let owghat1 = document.getElementById("owghat1");
+    let owghat2 = document.getElementById("owghat2");
+
+    const r = fetch('https://prayer.aviny.com/api/prayertimes/1', { method: "GET" })
+        .then((response) => response.json())
+        .then((responseData) => {
+            var text = '';
+            text += '<thead><td>' + responseData['CityName'];
+            text += '<tr><td>صبح<td>' + responseData['Imsaak'];
+            text += '<tr><td>طلوع<td>' + responseData['Sunrise'];
+            text += '<tr><td>ظهر<td>' + responseData['Noon'];
+            // text += '<tr><td>عصر<td>' + responseData['Noon'];
+            text += '<tr><td>غروب<td>' + responseData['Sunset'];
+            text += '<tr><td>مغرب<td>' + responseData['Maghreb'];
+            text += '<tr><td>نیمه‌شب<td>' + responseData['Midnight'];
+            owghat1.innerHTML = text;
+        })
+        .catch(error => console.warn(error));
+
+    fetch('https://prayer.aviny.com/api/prayertimes/2130', { method: "GET" })
+        .then((response) => response.json())
+        .then((responseData) => {
+            var text = '';
+            text += '<thead><td>' + responseData['CityName'];
+            text += '<tr><td>صبح<td>' + responseData['Imsaak'];
+            text += '<tr><td>طلوع<td>' + responseData['Sunrise'];
+            text += '<tr><td>ظهر<td>' + responseData['Noon'];
+            // text += '<tr><td>عصر<td>' + responseData['Noon'];
+            text += '<tr><td>غروب<td>' + responseData['Sunset'];
+            text += '<tr><td>مغرب<td>' + responseData['Maghreb'];
+            text += '<tr><td>نیمه‌شب<td>' + responseData['Midnight'];
+            owghat2.innerHTML = text;
+        })
+        .catch(error => console.warn(error));
+}
+
 // Initialize calendar
 function initCalendar() {
     getToday().then(([jy, jm, jd]) => {
@@ -777,7 +814,7 @@ function initCalendar() {
         // today[2] = 25;
 
         updateCalendar();
-
+        updateOwghat();
     })
 }
 
