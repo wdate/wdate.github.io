@@ -70,8 +70,9 @@ body {
     color: #ccc;
 }
 
-.calendar tbody td.today {
-    background-color: #007BFF;
+.calendar tbody td.today .jday {
+    background-color: #ff9999;
+    /* border-style: solid; */
     color: white;
     border-radius: 8px;
     font-weight: bold;
@@ -106,6 +107,10 @@ body {
     font-weight: bold;
 }
 
+.holiday {
+    background-color: #ffcccc;
+}
+
 .inactive .hday, .inactive .gday {
     color: #ccc;
 }
@@ -119,3 +124,93 @@ body {
     font-size: 16px;
     cursor: pointer;
 }
+
+#monasebat-container {
+    max-width: 400px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    direction: rtl;
+}
+
+#monasebat-container .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.monasebat {
+    background: white;
+    border: 1px solid #ccc;
+}
+
+.monasebat h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.monasebat-date {
+    font-weight: bold;
+    background-color: #007BFF;
+    align-content: baseline;
+    border-color: white;
+    border-width: 1px;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    text-align: center;
+}
+
+.monasebat-text {
+    padding: 5px;
+    border-color: #dddddd;
+    border-width: 1px;
+}
+
+#calendar-monasebat-container {
+    width: 810px;
+    margin: auto;
+}
+
+#calendar-container {
+    float: right;
+}
+
+#monasebat-container {
+    float: left;
+}
+
+.column {
+    /* display: inline; */
+}
+
+@media screen and (max-width: 810px) {
+    .column {
+        /* display: block; */
+    }
+
+
+    #calendar-container {
+        float: none;
+    }
+
+    #monasebat-container {
+        float: none;
+    }
+
+    #calendar-monasebat-container {
+        width: 100%;
+    }
+
+}
+  

@@ -12,62 +12,74 @@
     <script src="https://unpkg.com/tippy.js@6"></script>
 </head>
 <body>
-    <div class="calendar" id="calendar-container">
-        <div class="header">
-            <button id="prev-month">ماه قبل</button>
-            <h2 id="current-month" class="trigger">
-                <span class="dropdown">
-                    <span id="month" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        دی
-                    </span>
-                    <ul id="month-options" class="dropdown-menu"></ul>
-                </span>
-                <span id="dialog-open">
-                    <span id="year" class="">
-                        ۱۴۰۳
-                    </span>
 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div id="calendar-monasebat-container">
+        <div class="calendar column" id="calendar-container">
+            <div class="header">
+                <button id="prev-month">ماه قبل</button>
+                <h2 id="current-month" class="trigger">
+                    <span class="dropdown">
+                        <span id="month" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            دی
+                        </span>
+                        <ul id="month-options" class="dropdown-menu"></ul>
+                    </span>
+                    <span id="dialog-open">
+                        <span id="year" class="">
+                            ۱۴۰۳
+                        </span>
+    
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                This is the content of the dialog box.
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                            This is the content of the dialog box.
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                </span>
-            </h2>
-            <button id="next-month">ماه بعد</button>
+                    </span>
+                </h2>
+                <button id="next-month">ماه بعد</button>
+            </div>
+            <div class="sub-header">
+                <div id="calendar-gregorian-month">December 2024 - January 2025</div>
+                <div id="calendar-hijri-month">جمادي الثانيه - رجب 1446</div>
+            </div>
+    
+            <table id="calendar-table">
+                <thead>
+                    <tr>
+                        <th>ش</th>
+                        <th>ی</th>
+                        <th>د</th>
+                        <th>س</th>
+                        <th>چ</th>
+                        <th>پ</th>
+                        <th>ج</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-days"></tbody>
+            </table>
+            <button id="go-to-today">برو به امروز</button>
         </div>
-        <div class="sub-header">
-            <div id="calendar-gregorian-month">December 2024 - January 2025</div>
-            <div id="calendar-hijri-month">جمادي الثانيه - رجب 1446</div>
+    
+        <div id="monasebat-container" class="column">
+            <div class="header">
+                <h2>مناسبت‌ها</h2>
+            </div>
+            <div id="monasebat" class="monasebat">
+    
+            </div>    
         </div>
-
-        <table id="calendar-table">
-            <thead>
-                <tr>
-                    <th>ش</th>
-                    <th>ی</th>
-                    <th>د</th>
-                    <th>س</th>
-                    <th>چ</th>
-                    <th>پ</th>
-                    <th>ج</th>
-                </tr>
-            </thead>
-            <tbody id="calendar-days"></tbody>
-        </table>
-        <button id="go-to-today">برو به امروز</button>
     </div>
 
     <script src="hijri.js"></script>
