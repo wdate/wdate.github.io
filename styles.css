@@ -15,7 +15,7 @@ body {
 
 .calendar {
     max-width: 400px;
-    margin: 50px auto;
+    margin: 50px auto 10px auto;
     background: white;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -127,8 +127,7 @@ body {
 }
 
 #monasebat-container {
-    max-width: 400px;
-    margin: 50px auto;
+    margin: 10px auto 10px auto;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -178,10 +177,24 @@ body {
     border-width: 1px;
 }
 
+.monasebat table {
+    width: 100%;
+}
+
+.monasebat .today {
+    border-color: #ff8888;
+    border-width: 5px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.monasebat .past .monasebat-date {
+    background-color: #99caff;
+}
 
 .owghat {
     max-width: 400px;
-    margin: 50px auto;
+    margin: 50px auto 10px auto;
     background: white;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -195,6 +208,10 @@ body {
     display: inline;
 }
 
+.owghat .past {
+    background-color: #eee;
+}
+
 .column {
     /* display: inline; */
 }
@@ -202,8 +219,8 @@ body {
 #calendar-monasebat-container {
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next line */
-    gap: 10px; /* Optional: Adds spacing between items */
-    width: 810px;
+    /* gap: 10px; Optional: Adds spacing between items */
+    max-width: 810px;
     direction: rtl;
     margin: auto;
 }
@@ -225,16 +242,15 @@ body {
 
 #monasebat-container {
     /* float: none; */
-    /* max-width: 800px; */
+    max-width: 700px;
     align-items: center; /* Center content vertically */
     justify-content: center; /* Center content horizontally */
     flex-basis: 100%; /* Take full width to move to the next line */
-  
 }
 
 
 
-@media screen and (max-width: 810px) {
+@media screen and (max-width: 689px) {
     .column {
         /* display: block; */
     }
@@ -249,12 +265,16 @@ body {
 
     #monasebat-container {
         /* float: none; */
-        /* max-width: 400px; */
+        max-width: 400px;
     }
 
     #calendar-monasebat-container {
         width: 100%;
     }
 
+    .owghat {
+        max-width: 400px;
+        margin: 10px auto 10px auto;
+    }
 }
   

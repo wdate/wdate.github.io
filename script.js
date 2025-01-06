@@ -552,6 +552,18 @@ function populateCalendar(year, month) {
     // const firstDay = getJalaliFirstDayOfWeek(year, month); // Get the correct first day
     // const totalDays = jalaaliMonthLength(year, month); // Get the number of days in the Jalali month
 
+    function compare_arrays(a, b) {
+        for (let i=0; i<a.length && i<b.length; i++) {
+            if (a[i] != b[i]) {
+                return a[i] < b[i] ? -1 : +1;
+            }
+        }
+        if (a.length == b.length)
+            return 0;
+        if (a.length < b.length)
+            return -1;
+        return +1;
+    }
 
     function prependZero(day) {
         var sDay = '' + day;
@@ -643,6 +655,14 @@ function populateCalendar(year, month) {
                 }
 
                 let row = document.createElement("tr");
+                let monasebat_date = m.children[0].innerHTML.replace('&nbsp;', ' ').split(' ');
+                let monasebat_date_day = parseInt(convertToArabic(monasebat_date[0]));
+                console.log('check', [year, month, monasebat_date_day], today, monasebat_date);
+                switch (compare_arrays([year, month, monasebat_date_day], today)) {
+                    case 0: row.classList.add('today'); break;
+                    case -1: row.classList.add('past'); break;
+                }
+
                 row.innerHTML = '<td class="monasebat-date">' + m.children[0].innerHTML + '<td class="monasebat-text">' + text;
                 new_monasebat_table.appendChild(row);
             }
@@ -731,12 +751,19 @@ function populateCalendar(year, month) {
     calendarHijriMonth.innerHTML = dateRangeToMonthTitle(minH, maxH, getHijriMonthName);
 }
 
+function getTwentyFourHourTime(amPmString) { 
+    var d = new Date("1/1/2020 " + amPmString); 
+    return [d.getHours(), d.getMinutes()];
+}
+
 
 let currentJalaliYear;
 let currentJalaliMonth;
 let today;
+let time_now;
 
 function getToday() {
+
     const r = fetch('https://prayer.aviny.com/api/prayertimes/1',
         {
             method: "GET",
@@ -750,7 +777,7 @@ function getToday() {
             // console.log(responseData);
             const r = responseData['Today'].split(' ')[0].split('/').map(Number);
             // console.log(r);
-            return r;
+            return r.concat(getTwentyFourHourTime(responseData['Today'].split('-')[1]));
         })
         .catch(error => console.warn(error));
     // console.log(r);
@@ -772,18 +799,46 @@ function updateOwghat() {
     let owghat1 = document.getElementById("owghat1");
     let owghat2 = document.getElementById("owghat2");
 
+    function time_to_ms(s) {
+        console.log(s);
+        let x = s.split(':');
+        while (x.length < 3)
+            x.push('00');
+        let r = 0;
+        for (let c of x) {
+            r = r * 60 + c;
+        }
+        console.log(r);
+        return r;
+    }
+
+    function row_text(row, id, response, response_id) {
+        let time = getTwentyFourHourTime(response['Today'].split('-')[1]);
+        let c = '';
+        let time_ms = time_to_ms(time.join(':')),
+            id_ms = time_to_ms(response[response_id]);
+        if (time_ms != 'NaN00') {
+            c = Math.abs(time_ms - id_ms) < 5 * 60 ? 'now' : id_ms < time_ms ? 'past' : '';
+        }
+        return `<${row} class="${c}"><td>${id}<td>${response[response_id]}`;
+    }
+
     const r = fetch('https://prayer.aviny.com/api/prayertimes/1', { method: "GET" })
         .then((response) => response.json())
         .then((responseData) => {
+            time_now
             var text = '';
-            text += '<thead><td>' + responseData['CityName'];
-            text += '<tr><td>صبح<td>' + responseData['Imsaak'];
-            text += '<tr><td>طلوع<td>' + responseData['Sunrise'];
-            text += '<tr><td>ظهر<td>' + responseData['Noon'];
-            // text += '<tr><td>عصر<td>' + responseData['Noon'];
-            text += '<tr><td>غروب<td>' + responseData['Sunset'];
-            text += '<tr><td>مغرب<td>' + responseData['Maghreb'];
-            text += '<tr><td>نیمه‌شب<td>' + responseData['Midnight'];
+            // text += '<thead><td>' + responseData['CityName'];
+            text += row_text('thead', '', responseData, 'CityName');
+            for (const [t, i] of [['صبح', 'Imsaak'], ['طلوع', 'Sunrise'], ['ظهر', 'Noon'], ['غروب', 'Sunset'], ['مغرب', 'Maghreb'], ['نیمه‌شب', 'Midnight']]) {
+                text += row_text('tr', t, responseData, i);
+            }
+            // text += '<tr><td>صبح<td>' + responseData['Imsaak'];
+            // text += '<tr><td>طلوع<td>' + responseData['Sunrise'];
+            // text += '<tr><td>ظهر<td>' + responseData['Noon'];
+            // text += '<tr><td>غروب<td>' + responseData['Sunset'];
+            // text += '<tr><td>مغرب<td>' + responseData['Maghreb'];
+            // text += '<tr><td>نیمه‌شب<td>' + responseData['Midnight'];
             owghat1.innerHTML = text;
         })
         .catch(error => console.warn(error));
@@ -792,14 +847,18 @@ function updateOwghat() {
         .then((response) => response.json())
         .then((responseData) => {
             var text = '';
-            text += '<thead><td>' + responseData['CityName'];
-            text += '<tr><td>صبح<td>' + responseData['Imsaak'];
-            text += '<tr><td>طلوع<td>' + responseData['Sunrise'];
-            text += '<tr><td>ظهر<td>' + responseData['Noon'];
-            // text += '<tr><td>عصر<td>' + responseData['Noon'];
-            text += '<tr><td>غروب<td>' + responseData['Sunset'];
-            text += '<tr><td>مغرب<td>' + responseData['Maghreb'];
-            text += '<tr><td>نیمه‌شب<td>' + responseData['Midnight'];
+            // text += '<thead><td>' + responseData['CityName'];
+            // text += '<tr><td>صبح<td>' + responseData['Imsaak'];
+            // text += '<tr><td>طلوع<td>' + responseData['Sunrise'];
+            // text += '<tr><td>ظهر<td>' + responseData['Noon'];
+            // // text += '<tr><td>عصر<td>' + responseData['Noon'];
+            // text += '<tr><td>غروب<td>' + responseData['Sunset'];
+            // text += '<tr><td>مغرب<td>' + responseData['Maghreb'];
+            // text += '<tr><td>نیمه‌شب<td>' + responseData['Midnight'];
+            text += row_text('thead', '', responseData, 'CityName');
+            for (const [t, i] of [['صبح', 'Imsaak'], ['طلوع', 'Sunrise'], ['ظهر', 'Noon'], ['غروب', 'Sunset'], ['مغرب', 'Maghreb'], ['نیمه‌شب', 'Midnight']]) {
+                text += row_text('tr', t, responseData, i);
+            }
             owghat2.innerHTML = text;
         })
         .catch(error => console.warn(error));
@@ -807,8 +866,9 @@ function updateOwghat() {
 
 // Initialize calendar
 function initCalendar() {
-    getToday().then(([jy, jm, jd]) => {
+    getToday().then(([jy, jm, jd, hour, minute]) => {
         today = [jy, jm, jd];
+        time_now = [hour, minute];
         currentJalaliYear = jy;
         currentJalaliMonth = jm;
         // today[2] = 25;
